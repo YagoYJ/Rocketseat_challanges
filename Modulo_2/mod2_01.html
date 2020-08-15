@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      button {
+        color: #ffffff;
+        background-color: #4d57ec;
+        border: none;
+        padding: 5px 9px;
+        font-size: 20px;
+        border-radius: 3px;
+      }
+
+      #container {
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 100px;
+      }
+
+      .square {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="button">Adicionar quadrado</button>
+    <div id="container"></div>
+
+    <script>
+      // Mostrar um quadrado assim que o botão é clicado
+      
+      const button = document.getElementById("button");
+      const container = document.getElementById("container");
+
+      button.addEventListener("click", () => {
+        var square = document.createElement("div");
+        square.setAttribute("class", "square");
+
+        container.appendChild(square);
+      });
+    </script>
+  </body>
+</html>

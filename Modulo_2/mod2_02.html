@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      button {
+        color: #ffffff;
+        background-color: #4d57ec;
+        border: none;
+        padding: 5px 9px;
+        font-size: 20px;
+        border-radius: 3px;
+      }
+
+      #container {
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 100px;
+      }
+
+      .square {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="button">Adicionar quadrado</button>
+    <div id="container"></div>
+
+    <script>
+      // Alterar a cor do quadrado quando o mouse passa por cima dele
+
+      const button = document.getElementById("button");
+      const container = document.getElementById("container");
+      const squares = document.querySelectorAll(".square");
+
+      function getRandomColor() {
+        var letters = "0123456789ABCDEF";
+        var color = "#";
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+      button.addEventListener("click", () => {
+        var square = document.createElement("div");
+        square.setAttribute("class", "square");
+
+        square.addEventListener("mouseover", () => {
+          square.style.backgroundColor = getRandomColor();
+        });
+
+        container.appendChild(square);
+      });
+    </script>
+  </body>
+</html>
