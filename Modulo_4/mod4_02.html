@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      input {
+        font-size: 15pt;
+        padding: 5px 10px;
+        border-radius: 3px;
+        border: 1px solid black;
+      }
+
+      button {
+        font-size: 15pt;
+        padding: 5px 10px;
+        background-color: #006699;
+        color: #ffffff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Search repos from github users</h1>
+    <input type="text" name="user" placeholder="github username" />
+    <button onclick="addRepos()">Search</button>
+
+    <h2></h2>
+
+    <ul></ul>
+    <script>
+      const input = document.querySelector("input");
+      const button = document.querySelector("button");
+      const h2 = document.querySelector("h2");
+      const ul = document.querySelector("ul");
+
+      var myPromise = function (user) {
+        return new Promise(function (resolve, reject) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", `https://api.github.com/users/${user}/repos`);
+          xhr.send(null);
+
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+              if (xhr.status === 200) {
+                resolve(JSON.parse(xhr.responseText));
+              } else {
+                reject("Error");
+              }
+            }
+          };
+        });
+      };
+
+      function addRepos() {
+        const user = input.value;
+
+        myPromise(user)
+          .then((res) => {
+            var userTitle = document.createTextNode(`${user}'s repos:`);
+            h2.appendChild(userTitle)
+            res.map((repo) => {
+              var li = document.createElement("li");
+              var liText = document.createTextNode(repo.name);
+
+              li.appendChild(liText);
+              ul.appendChild(li);
+            });
+          })
+          .catch(() => {
+            console.log("Error");
+          });
+      }
+    </script>
+  </body>
+</html>
